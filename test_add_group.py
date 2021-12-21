@@ -29,6 +29,8 @@ class TestAddGroup(unittest.TestCase):
         self.create_group(wd, Group(name="Test2", header="Test2", footer="Test2"))
         self.return_to_groups_page(wd)
         self.logout(wd)
+
+
     def logout(self, wd):
         wd.find_element_by_link_text("Logout").click()
 
