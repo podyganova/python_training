@@ -11,6 +11,13 @@ class ContactHelper:
         wd = self.app.wd
         # Add new
         wd.find_element_by_link_text("add new").click()
+        self.form_filling(contact)
+        # Отображение
+        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.open_home_page()
+
+    def form_filling(self, contact):
+        wd = self.app.wd
         # Adding Data
         # ФИО
         wd.find_element_by_name("firstname").click()
@@ -78,6 +85,43 @@ class ContactHelper:
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.notes)
-        # Отображение
-        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+
+    def delete_first(self):
+        wd = self.app.wd
+        # select
+        wd.find_element_by_name("selected[]").click()
+        # submit
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+
+    def delete_edit(self): # Удаление через форму редактирования
+        wd = self.app.wd
+        wd.find_element_by_xpath("//img[@title='Edit']").click()
+        # submit
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+
+    def delete_all(self):
+        wd = self.app.wd
+        # select
+        wd.find_element_by_xpath("//input[@id='MassCB']").click()
+        # submit
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+
+    def edit(self, contact):
+        wd = self.app.wd
+        # edit
+        wd.find_element_by_xpath("//img[@title='Edit']").click()
+        self.form_filling(contact)
+        wd.find_element_by_name("update").click()
         self.open_home_page()
+
+    def edit_details(self, contact): #Редактирование через форму просмотра
+        wd = self.app.wd
+        # edit
+        wd.find_element_by_xpath("//img[@title='Details']").click()
+        wd.find_element_by_name("modifiy").click()
+        self.form_filling(contact)
+        wd.find_element_by_name("update").click()
+        self.open_home_page()
+
