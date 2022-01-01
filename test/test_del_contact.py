@@ -1,12 +1,10 @@
 from model.contact import Contact
 
 def test_del_contact(app):
-    app.session.login(username="admin", password="secret")
     app.contact.delete_first()
-    app.session.logout()
+
 
 def test_del_all_contact(app):
-    app.session.login(username="admin", password="secret")
     app.contact.delete_all()
     # Добавление нового контакта, после общего удаления, для возможности выполнения следующих тестов
     app.contact.create(Contact(firstname="Ivan", middlename="Ivanovich", lastname="Ivanov", nickname="Van", title="Title",
@@ -15,10 +13,9 @@ def test_del_all_contact(app):
                 email3="7638@yandex.ru",
                 homepage="IvanIvanov.com", byear="1990", ayear="2021", address2="Address2", phone2="Home",
                 notes="TestTestTest"))
-    app.session.logout()
+
 
 def test_del_edit(app): # Удаление через форму редактирования
-    app.session.login(username="admin", password="secret")
     app.contact.delete_edit()
     # Добавление нового контакта,для возможности выполнения следующих тестов
     app.contact.create(Contact(firstname="Ivan", middlename="Ivanovich", lastname="Ivanov", nickname="Van", title="Title",
@@ -27,5 +24,5 @@ def test_del_edit(app): # Удаление через форму редакти�
                 email3="7638@yandex.ru",
                 homepage="IvanIvanov.com", byear="1990", ayear="2021", address2="Address2", phone2="Home",
                 notes="TestTestTest"))
-    app.session.logout()
+
 
