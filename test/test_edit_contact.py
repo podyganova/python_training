@@ -10,8 +10,8 @@ def test_edit_contact(app):
                                homepage="IvanIvanov333.com", byear="1933", ayear="2023", address2="Address23", phone2="Home3", notes="TestTestTest333")
     contact.id = old_contacts[0].id
     app.contact.edit(contact)
+    assert len(old_contacts) == app.contact.count()
     new_contacts = app.contact.get_contact_list()
-    assert len(old_contacts) == len(new_contacts)
     contact2 = Contact(firstname="Select (" + contact.firstname + " " + contact.lastname + ")")  # для сравнения
     old_contacts[0] = contact2
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
@@ -25,8 +25,8 @@ def test_edit_contact_details(app):
                                homepage="IvanIvanov33344.com", byear="1934", ayear="2034", address2="Address234", phone2="Home34", notes="TestTestTest333444")
     contact.id = old_contacts[0].id
     app.contact.edit_details(contact)
+    assert len(old_contacts) == app.contact.count()
     new_contacts = app.contact.get_contact_list()
-    assert len(old_contacts) == len(new_contacts)
     contact2 = Contact(firstname="Select (" + contact.firstname + " " + contact.lastname + ")")  # для сравнения
     old_contacts[0] = contact2
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)

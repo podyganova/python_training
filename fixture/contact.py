@@ -19,6 +19,7 @@ class ContactHelper:
         # Отображение
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.open_home_page()
+        self.contact_cache = None
 
     def form_filling(self, contact):
         wd = self.app.wd
@@ -63,6 +64,7 @@ class ContactHelper:
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+        self.contact_cache = None
 
     def delete_edit(self): # Удаление через форму редактирования
         wd = self.app.wd
@@ -70,6 +72,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//img[@title='Edit']").click()
         # submit
         wd.find_element_by_xpath("//input[@value='Delete']").click()
+        self.contact_cache = None
 
     def delete_all(self):
         wd = self.app.wd
@@ -77,6 +80,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@id='MassCB']").click()
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+        self.contact_cache = None
 
     def edit(self, contact):
         wd = self.app.wd
@@ -85,6 +89,7 @@ class ContactHelper:
         self.form_filling(contact)
         wd.find_element_by_name("update").click()
         self.open_home_page()
+        self.contact_cache = None
 
     def edit_details(self, contact): #Редактирование через форму просмотра
         wd = self.app.wd
@@ -94,19 +99,23 @@ class ContactHelper:
         self.form_filling(contact)
         wd.find_element_by_name("update").click()
         self.open_home_page()
+        self.contact_cache = None
 
     def count(self):
         wd = self.app.wd
         self.open_home_page()
         return len(wd.find_elements_by_xpath("//tr[@name='entry']/td[1][@class='center']"))
 
+    contact_cache = None
+
     def get_contact_list(self):
-        wd = self.app.wd
-        self.open_home_page()
-        wd.find_element_by_name("MainForm")
-        contacts = []
-        for element in wd.find_elements_by_xpath("//tr[@name='entry']/td[1][@class='center']"):
-            text = element.find_element_by_name("selected[]").get_attribute("title")
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(firstname=text, id=id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.open_home_page()
+            wd.find_element_by_name("MainForm")
+            self.contact_cache = []
+            for element in wd.find_elements_by_xpath("//tr[@name='entry']/td[1][@class='center']"):
+                text = element.find_element_by_name("selected[]").get_attribute("title")
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.contact_cache.append(Contact(firstname=text, id=id))
+        return list(self.contact_cache)
