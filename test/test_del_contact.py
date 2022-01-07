@@ -1,10 +1,18 @@
+import time
+
 from model.contact import Contact
 
 
 def test_del_contact(app):
     if app.contact.count() == 0:
         app.contact.create(Contact(firstname="test"))
+    old_contacts = app.contact.get_contact_list()
     app.contact.delete_first()
+    time.sleep(5)
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) - 1 == len(new_contacts)
+    old_contacts[0:1] = []
+    assert old_contacts == new_contacts
 
 
 def test_del_all_contact(app):
@@ -16,6 +24,9 @@ def test_del_all_contact(app):
                 homepage="IvanIvanov.com", byear="1990", ayear="2021", address2="Address2", phone2="Home",
                 notes="TestTestTest"))
     app.contact.delete_all()
+    time.sleep(5)
+    old_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) == 0
 
 
 def test_del_edit(app): # Удаление через форму редактирования
@@ -26,6 +37,12 @@ def test_del_edit(app): # Удаление через форму редакти�
                 email3="7638@yandex.ru",
                 homepage="IvanIvanov.com", byear="1990", ayear="2021", address2="Address2", phone2="Home",
                 notes="TestTestTest"))
+    old_contacts = app.contact.get_contact_list()
     app.contact.delete_edit()
+    time.sleep(5)
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) - 1 == len(new_contacts)
+    old_contacts[0:1] = []
+    assert old_contacts == new_contacts
 
 

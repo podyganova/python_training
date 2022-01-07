@@ -1,3 +1,6 @@
+from model.contact import Contact
+
+
 class ContactHelper:
 
     def __init__(self, app):
@@ -95,5 +98,15 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         self.open_home_page()
-        return len(wd.find_elements_by_name("selected[]"))
+        return len(wd.find_elements_by_xpath("//tr[@name='entry']/td[1][@class='center']"))
 
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_name("MainForm")
+        contacts = []
+        for element in wd.find_elements_by_xpath("//tr[@name='entry']/td[1][@class='center']"):
+            text = element.find_element_by_name("selected[]").get_attribute("title")
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(firstname=text, id=id))
+        return contacts
