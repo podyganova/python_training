@@ -59,17 +59,23 @@ class ContactHelper:
             wd.find_element_by_name(field_name).send_keys(text)
 
     def delete_first(self):
+        self.delete_some(0)
+
+    def delete_some(self, index):
         wd = self.app.wd
         self.open_home_page()
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         self.contact_cache = None
 
-    def delete_edit(self): # Удаление через форму редактирования
+    def delete_edit(self):
+        self.delete_edit_some(0)
+
+    def delete_edit_some(self, index): # Удаление через форму редактирования
         wd = self.app.wd
         self.open_home_page()
-        wd.find_element_by_xpath("//img[@title='Edit']").click()
+        wd.find_elements_by_xpath("//img[@title='Edit']")[index].click()
         # submit
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         self.contact_cache = None
@@ -82,19 +88,25 @@ class ContactHelper:
         wd.switch_to.alert.accept()
         self.contact_cache = None
 
-    def edit(self, contact):
+    def edit (self):
+        self.edit_some(0)
+
+    def edit_some(self, index, contact):
         wd = self.app.wd
         self.open_home_page()
-        wd.find_element_by_xpath("//img[@title='Edit']").click()
+        wd.find_elements_by_xpath("//img[@title='Edit']")[index].click()
         self.form_filling(contact)
         wd.find_element_by_name("update").click()
         self.open_home_page()
         self.contact_cache = None
 
-    def edit_details(self, contact): #Редактирование через форму просмотра
+    def edit_details(self):
+        self.edit_details_some(0)
+
+    def edit_details_some(self, index, contact): #Редактирование через форму просмотра
         wd = self.app.wd
         self.open_home_page()
-        wd.find_element_by_xpath("//img[@title='Details']").click()
+        wd.find_elements_by_xpath("//img[@title='Details']")[index].click()
         wd.find_element_by_name("modifiy").click()
         self.form_filling(contact)
         wd.find_element_by_name("update").click()
