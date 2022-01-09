@@ -13,8 +13,7 @@ def test_edit_contact(app):
     app.contact.edit_some(index, contact)
     assert len(old_contacts) == app.contact.count()
     new_contacts = app.contact.get_contact_list()
-    contact2 = Contact(firstname="Select (" + contact.firstname + " " + contact.lastname + ")")  # для сравнения
-    old_contacts[index] = contact2
+    old_contacts[index] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
 
@@ -30,7 +29,6 @@ def test_edit_contact_details(app):
     app.contact.edit_details_some(index, contact)
     assert len(old_contacts) == app.contact.count()
     new_contacts = app.contact.get_contact_list()
-    contact2 = Contact(firstname="Select (" + contact.firstname + " " + contact.lastname + ")")  # для сравнения
-    old_contacts[index] = contact2
+    old_contacts[index] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 

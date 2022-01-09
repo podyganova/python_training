@@ -125,9 +125,12 @@ class ContactHelper:
             wd = self.app.wd
             self.open_home_page()
             wd.find_element_by_name("MainForm")
-            self.contact_cache = []
-            for element in wd.find_elements_by_xpath("//tr[@name='entry']/td[1][@class='center']"):
-                text = element.find_element_by_name("selected[]").get_attribute("title")
+            self.contact_cache = [] #/td[1][@class='center']   .find_element_by_name("selected[]")
+            n = 1
+            for element in wd.find_elements_by_xpath("//tr[@name='entry']"):
+                lastname_text = element.find_element_by_xpath("//tr[@name='entry']["+str(n)+"]/td[2]").text
+                firstname_text = element.find_element_by_xpath("//tr[@name='entry']["+str(n)+"]/td[3]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.contact_cache.append(Contact(firstname=text, id=id))
+                self.contact_cache.append(Contact(lastname=lastname_text, firstname=firstname_text, id=id))
+                n = n+1
         return list(self.contact_cache)
