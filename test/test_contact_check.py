@@ -10,7 +10,7 @@ def test_contact_check(app):
     assert contact_home.all_emails == merge_emails(contact_edit)
     assert contact_home.all_phones == merge_phone(contact_edit)
 
- 
+
 def clear(s):
     return re.sub("[() -]", "", s)
 
