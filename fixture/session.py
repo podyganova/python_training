@@ -44,4 +44,4 @@ class SessionHelper:
             else:
                 self.logout()
         self.login(username, password)
-        wd.find_element_by_name("user")
+       # wd.find_element_by_name("user")
