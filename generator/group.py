@@ -35,4 +35,4 @@ file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
 
 
 with open(file, "w") as out:
-    out.write(jsonpickle.dumps(testdata, indent=2))
+    out.write(jsonpickle.encode(testdata, indent=2))
