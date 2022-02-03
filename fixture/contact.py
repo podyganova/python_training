@@ -65,10 +65,26 @@ class ContactHelper:
     def delete_some(self, index):
         wd = self.app.wd
         self.open_home_page()
-        wd.find_elements_by_name("selected[]")[index].click()
+        self.select_contact_index(index)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
         self.contact_cache = None
+
+    def select_contact_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def delete_some_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_contact_id(id)
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+        self.contact_cache = None
+
+    def select_contact_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
     def delete_edit(self):
         self.delete_edit_some(0)
@@ -77,6 +93,14 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         wd.find_elements_by_xpath("//img[@title='Edit']")[index].click()
+        # submit
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        self.contact_cache = None
+
+    def delete_edit_id(self, id): # Удаление через форму редактирования
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_css_selector("a[href='edit.php?id=%s']" % id).click()
         # submit
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         self.contact_cache = None
@@ -101,6 +125,15 @@ class ContactHelper:
         self.open_home_page()
         self.contact_cache = None
 
+    def edit_by_id(self, contact):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_css_selector("a[href='edit.php?id=%s']" % contact.id).click()
+        self.form_filling(contact)
+        wd.find_element_by_name("update").click()
+        self.open_home_page()
+        self.contact_cache = None
+
     def edit_details(self):
         self.edit_details_some(0)
 
@@ -108,6 +141,16 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         wd.find_elements_by_xpath("//img[@title='Details']")[index].click()
+        wd.find_element_by_name("modifiy").click()
+        self.form_filling(contact)
+        wd.find_element_by_name("update").click()
+        self.open_home_page()
+        self.contact_cache = None
+
+    def edit_details_id(self, contact):  # Редактирование через форму просмотра
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_css_selector("a[href='view.php?id=%s']" % contact.id).click()
         wd.find_element_by_name("modifiy").click()
         self.form_filling(contact)
         wd.find_element_by_name("update").click()
