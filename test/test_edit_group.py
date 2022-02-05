@@ -15,4 +15,4 @@ def test_edit_id_group(app, db, check_ui):
     old_groups[index] = group_new
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
     if check_ui:
-        assert sorted(new_groups, key=Group.id_or_max) == sorted(app.group.get_group_list(), key=Group.id_or_max)
+        assert sorted(new_groups, key=Group.id_or_max) == sorted(app.group.get_contact_list(), key=Group.id_or_max)

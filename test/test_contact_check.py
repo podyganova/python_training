@@ -1,14 +1,16 @@
 import re
+from model.contact import Contact
 
 
-def test_contact_check(app):
-    contact_home = app.contact.get_contact_list()[0]
-    contact_edit = app.contact.get_contact_edit(0)
-    assert contact_home.firstname == contact_edit.firstname
-    assert contact_home.lastname == contact_edit.lastname
-    assert contact_home.address == contact_edit.address
-    assert contact_home.all_emails == merge_emails(contact_edit)
-    assert contact_home.all_phones == merge_phone(contact_edit)
+def test_contact_check(app, db):
+    contact_home = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
+    contact_db = sorted(db.get_contact_list(), key=Contact.id_or_max)
+    for i in range(len(contact_home)):
+        assert contact_home[i].firstname == contact_db[i].firstname
+        assert contact_home[i].lastname == contact_db[i].lastname
+        assert contact_home[i].address == contact_db[i].address
+        assert contact_home[i].all_emails == merge_emails(contact_db[i])
+        assert contact_home[i].all_phones == merge_phone(contact_db[i])
 
 
 def clear(s):

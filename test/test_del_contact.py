@@ -15,7 +15,7 @@ def test_del_contact(app, db, check_ui):
     old_contacts.remove(contact)
     assert old_contacts == new_contacts
     if check_ui:
-        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_group_list(), key=Contact.id_or_max)
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
 
 
 def test_del_all_contact(app, db):
@@ -49,5 +49,5 @@ def test_del_edit(app, db, check_ui): # Удаление через форму �
     old_contacts.remove(contact)
     assert old_contacts == new_contacts
     if check_ui:
-        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_group_list(), key=Contact.id_or_max)
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
 
