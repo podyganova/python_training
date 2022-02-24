@@ -1,0 +1,61 @@
+[ {
+  "uid" : "577f37ca5361ab3d",
+  "name" : "test_add_group[None:nameOvuamheaderSs8FLmKFWWfooter4]",
+  "time" : {
+    "start" : 1645712769686,
+    "stop" : 1645712775755,
+    "duration" : 6069
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "d44af2958e4f93e1",
+  "name" : "test_add_group[None:]",
+  "time" : {
+    "start" : 1645712744989,
+    "stop" : 1645712751190,
+    "duration" : 6201
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "8eb3d620ad55493a",
+  "name" : "test_add_group[None:name1K2nzp9J6rUiyheaderfooterzlf7m5yCzBcRy]",
+  "time" : {
+    "start" : 1645712775786,
+    "stop" : 1645712781997,
+    "duration" : 6211
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "8996b283e48ceb77",
+  "name" : "test_add_group[None:namengHF7LMheaderuPrvmmGjfootert1HFZeQDIo5Yqx]",
+  "time" : {
+    "start" : 1645712763479,
+    "stop" : 1645712769655,
+    "duration" : 6176
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "7b78202b95e1729d",
+  "name" : "test_add_group[None:nameAheaderduKW7footerylfnURWlq9o27]",
+  "time" : {
+    "start" : 1645712751222,
+    "stop" : 1645712757330,
+    "duration" : 6108
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "e51e5ac278ad5dbb",
+  "name" : "test_add_group[None:namexSZD8headerawlRlfooterianHXV]",
+  "time" : {
+    "start" : 1645712757346,
+    "stop" : 1645712763447,
+    "duration" : 6101
+  },
+  "status" : "passed",
+  "severity" : "normal"
+} ]
